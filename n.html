@@ -1,62 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>পেজ ১</title>
+  <title>সাবমিট নাম ওয়েবসাইট</title>
   <style>
     body {
       text-align: center;
     }
-
+  
     h1 {
       color: blue;
     }
-
-    #content {
+  
+    form {
       margin-top: 20px;
     }
-
-    #nameForm {
-      margin-bottom: 10px;
-    }
-
-    #shareButton {
-      margin-bottom: 20px;
+  
+    .share-button {
+      display: inline-block;
+      background-color: green;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      text-decoration: none;
     }
   </style>
   <script>
     function submitForm(event) {
       event.preventDefault();
       var name = document.getElementById('nameInput').value;
-      var pageLink = window.location.href + '/' + encodeURIComponent(name);
-      createNewPage(name, pageLink);
+      document.getElementById('nameHeading').textContent = name;
+      document.getElementById('nameInput').value = '';
+      createNewPage(name);
     }
-
-    function createNewPage(name, link) {
-      var newPage = document.createElement('a');
-      newPage.href = link;
-      newPage.textContent = name;
-      newPage.onclick = function() {
-        document.getElementById('nameHeading').textContent = name;
-      };
-      document.body.appendChild(newPage);
+  
+    function createNewPage(name) {
+      var newPageUrl = 'https://baha2004.github.io/Simple/n.html' + encodeURIComponent(name);
+      window.location.href = newPageUrl;
     }
-
+  
     function sharePage() {
       var name = document.getElementById('nameHeading').textContent;
-      var pageLink = window.location.href;
-      var shareText = 'আমার নতুন পেজ: ' + name + ' - ' + pageLink;
-      window.open('https://wa.me/?text=' + encodeURIComponent(shareText));
+      var pageUrl = window.location.href;
+      var shareUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(pageUrl);
+      window.open(shareUrl, '_blank');
     }
   </script>
 </head>
 <body>
   <h1 id="nameHeading">স্বাগতম!</h1>
-  <div id="content">
-    <form id="nameForm" onsubmit="submitForm(event)">
-      <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন">
-      <input type="submit" value="সাবমিট">
-    </form>
-    <button id="shareButton" onclick="sharePage()">WhatsApp এ শেয়ার করুন</button>
-  </div>
+  <form id="nameForm" onsubmit="submitForm(event)">
+    <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন">
+    <input type="submit" value="সাবমিট">
+  </form>
+  <a class="share-button" onclick="sharePage()">শেয়ার</a>
 </body>
 </html>
