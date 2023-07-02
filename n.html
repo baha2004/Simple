@@ -34,7 +34,7 @@
     }
   
     function createNewPage(name) {
-      var newPageUrl = 'https://baha2004.github.io/Simple/n.html' + encodeURIComponent(name);
+      var newPageUrl = './' + encodeURIComponent(name) + '.html';
       window.location.href = newPageUrl;
     }
   
@@ -49,9 +49,9 @@
 <body>
   <h1 id="nameHeading">স্বাগতম!</h1>
   <form id="nameForm" onsubmit="submitForm(event)">
-    <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন">
-    <input type="submit" value="সাবমিট">
+    <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন" required>
+    <button type="submit">সাবমিট</button>
   </form>
-  <a class="share-button" onclick="sharePage()">শেয়ার</a>
+  <a class="share-button" href="#" onclick="sharePage()">WhatsApp-এ শেয়ার করুন</a>
 </body>
 </html>
