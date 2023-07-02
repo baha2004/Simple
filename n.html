@@ -1,49 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>পেজ 1</title>
+  <title>পেজ ১</title>
   <style>
     body {
       text-align: center;
     }
-  
+
     h1 {
       color: blue;
     }
-  
-    form {
+
+    #content {
       margin-top: 20px;
+    }
+
+    #nameForm {
+      margin-bottom: 10px;
+    }
+
+    #shareButton {
+      margin-bottom: 20px;
     }
   </style>
   <script>
     function submitForm(event) {
       event.preventDefault();
       var name = document.getElementById('nameInput').value;
-      var pageURL = window.location.href + '/' + name;
-      window.location.href = pageURL;
+      var pageLink = window.location.href + '/' + encodeURIComponent(name);
+      createNewPage(name, pageLink);
     }
-  
+
+    function createNewPage(name, link) {
+      var newPage = document.createElement('a');
+      newPage.href = link;
+      newPage.textContent = name;
+      newPage.onclick = function() {
+        document.getElementById('nameHeading').textContent = name;
+      };
+      document.body.appendChild(newPage);
+    }
+
     function sharePage() {
       var name = document.getElementById('nameHeading').textContent;
-      var pageURL = window.location.href;
-      var shareURL = 'whatsapp://send?text=' + encodeURIComponent('Check out this page: ' + name + '\n' + pageURL);
-      window.open(shareURL);
+      var pageLink = window.location.href;
+      var shareText = 'আমার নতুন পেজ: ' + name + ' - ' + pageLink;
+      window.open('https://wa.me/?text=' + encodeURIComponent(shareText));
     }
   </script>
 </head>
 <body>
-  <h1 id="nameHeading">পেজ 1</h1>
-  
-  <div>
-    <p>এখানে রচনা এবং ছবি আছে</p>
-    <!-- রচনা এবং ছবি যেমনটি অন্যান্য এলিমেন্ট যোগ করতে চান, সেগুলো যোগ করুন -->
+  <h1 id="nameHeading">স্বাগতম!</h1>
+  <div id="content">
+    <form id="nameForm" onsubmit="submitForm(event)">
+      <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন">
+      <input type="submit" value="সাবমিট">
+    </form>
+    <button id="shareButton" onclick="sharePage()">WhatsApp এ শেয়ার করুন</button>
   </div>
-  
-  <form id="nameForm" onsubmit="submitForm(event)">
-    <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন">
-    <input type="submit" value="সাবমিট">
-  </form>
-  
-  <button onclick="sharePage()">শেয়ার</button>
 </body>
 </html>
