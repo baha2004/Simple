@@ -20,6 +20,7 @@
     <button onclick="shareLink()">Share on WhatsApp</button>
 
     <script>
+        // Function to share the current URL on WhatsApp
         function shareLink() {
             var currentURL = window.location.href;
             var message = "Check out this dynamic web page: " + currentURL;
@@ -27,24 +28,28 @@
             window.open(whatsappURL);
         }
 
+        // Function to handle form submission
         document.getElementById("nameForm").addEventListener("submit", function(event) {
             event.preventDefault();
             var name = document.getElementById("nameInput").value;
             document.getElementById("heading").innerText = "Hello, " + name + "!";
-            var newURL = window.location.href + "?name=" + encodeURIComponent(name);
+            var newURL = window.location.href.split("?")[0] + "?name=" + encodeURIComponent(name);
             window.history.replaceState({}, '', newURL);
+
+            // Store the name in localStorage
+            localStorage.setItem("name", name);
         });
 
-        document.getElementById("nameForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-    var name = document.getElementById("nameInput").value;
-    var currentURL = window.location.href;
-    var baseURL = currentURL.split("?")[0];
-    var newURL = baseURL + "?name=" + encodeURIComponent(name);
-    window.history.replaceState({}, '', newURL);
-    window.location.reload();
-});
+        // Function to retrieve the name from localStorage and update the heading
+        function updateHeading() {
+            var name = localStorage.getItem("name");
+            if (name) {
+                document.getElementById("heading").innerText = "Hello, " + name + "!";
+            }
+        }
 
+        // Update the heading when the page loads
+        window.onload = updateHeading;
     </script>
 </body>
 </html>
