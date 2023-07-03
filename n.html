@@ -1,57 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>সাবমিট নাম ওয়েবসাইট</title>
+  <title>পৃষ্ঠা</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
       text-align: center;
     }
-  
+
     h1 {
-      color: blue;
+      color: #333;
     }
-  
+
     form {
       margin-top: 20px;
     }
-  
-    .share-button {
-      display: inline-block;
-      background-color: green;
-      color: white;
+
+    input[type="text"] {
+      padding: 5px;
+      font-size: 16px;
+    }
+
+    input[type="submit"] {
       padding: 10px 20px;
-      border-radius: 5px;
-      text-decoration: none;
+      font-size: 16px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      cursor: pointer;
     }
   </style>
   <script>
-    function submitForm(event) {
-      event.preventDefault();
-      var name = document.getElementById('nameInput').value;
-      document.getElementById('nameHeading').textContent = name;
-      document.getElementById('nameInput').value = '';
-      createNewPage(name);
-    }
-  
-    function createNewPage(name) {
-      var newPageUrl = './' + encodeURIComponent(name) + '/n.html';
-      window.location.href = newPageUrl;
-    }
-  
-    function sharePage() {
-      var name = document.getElementById('nameHeading').textContent;
-      var pageUrl = window.location.href;
-      var shareUrl = 'https://api.whatsapp.com/send?text=' + encodeURIComponent(pageUrl);
-      window.open(shareUrl, '_blank');
-    }
+    window.onload = function() {
+      var nameForm = document.getElementById("nameForm");
+      var nameInput = document.getElementById("nameInput");
+      var nameSpan = document.getElementById("name");
+
+      nameForm.onsubmit = function(event) {
+        event.preventDefault(); // ডিফল্ট সাবমিট এ্যাকশন প্রতিহত করুন
+
+        var newName = nameInput.value;
+        nameSpan.textContent = newName;
+
+        // নতুন URL তৈরি করুন
+        var newUrl = window.location.origin + "/n.html?name=" + encodeURIComponent(newName);
+
+        // বর্তমান URL এর স্থানান্তর করুন
+        window.history.replaceState({}, '', newUrl);
+      };
+
+      // URL থেকে নামটি পান
+      var params = new URLSearchParams(window.location.search);
+      var name = params.get('name');
+      if (name) {
+        nameSpan.textContent = name;
+        nameInput.value = name;
+      }
+    };
   </script>
 </head>
 <body>
-  <h1 id="nameHeading">স্বাগতম!</h1>
-  <form id="nameForm" onsubmit="submitForm(event)">
-    <input type="text" id="nameInput" placeholder="আপনার নাম লিখুন" required>
-    <button type="submit">সাবমিট</button>
+  <h1>রচনা</h1>
+  <p id="author">-by <span id="name">নাম</span></p>
+  
+  <form id="nameForm">
+    <input type="text" id="nameInput" placeholder="নাম লিখুন">
+    <input type="submit" value="সাবমিট">
   </form>
-  <a class="share-button" href="#" onclick="sharePage()">WhatsApp-এ শেয়ার করুন</a>
 </body>
 </html>
