@@ -1,71 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>পৃষ্ঠা</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    h1 {
-      color: #333;
-    }
-
-    form {
-      margin-top: 20px;
-    }
-
-    input[type="text"] {
-      padding: 5px;
-      font-size: 16px;
-    }
-
-    input[type="submit"] {
-      padding: 10px 20px;
-      font-size: 16px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
-  <script>
-    window.onload = function() {
-      var nameForm = document.getElementById("nameForm");
-      var nameInput = document.getElementById("nameInput");
-      var nameSpan = document.getElementById("name");
-
-      nameForm.onsubmit = function(event) {
-        event.preventDefault(); // ডিফল্ট সাবমিট এ্যাকশন প্রতিহত করুন
-
-        var newName = nameInput.value;
-        nameSpan.textContent = newName;
-
-        // নতুন URL তৈরি করুন
-        var newUrl = window.location.origin + "/n.html?name=" + encodeURIComponent(newName);
-
-        // বর্তমান URL এর স্থানান্তর করুন
-        window.history.replaceState({}, '', newUrl);
-      };
-
-      // URL থেকে নামটি পান
-      var params = new URLSearchParams(window.location.search);
-      var name = params.get('name');
-      if (name) {
-        nameSpan.textContent = name;
-        nameInput.value = name;
-      }
-    };
-  </script>
+    <title>Dynamic Web Page</title>
+    <style>
+        body {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-  <h1>রচনা</h1>
-  <p id="author">-by <span id="name">নাম</span></p>
-  
-  <form id="nameForm">
-    <input type="text" id="nameInput" placeholder="নাম লেখুন">
-    <input type="submit" value="সাবমিট">
-  </form>
+    <h1 id="heading">Welcome!</h1>
+    <p id="text">This is a dynamic web page.</p>
+    <form id="nameForm">
+        <input type="text" id="nameInput" placeholder="Enter your name" required>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    <br>
+    <button onclick="shareLink()">Share on WhatsApp</button>
+
+    <script>
+        function shareLink() {
+            var currentURL = window.location.href;
+            var message = "Check out this dynamic web page: " + currentURL;
+            var whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
+            window.open(whatsappURL);
+        }
+
+        document.getElementById("nameForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var name = document.getElementById("nameInput").value;
+            document.getElementById("heading").innerText = "Hello, " + name + "!";
+            var newURL = window.location.href + "?name=" + encodeURIComponent(name);
+            window.history.replaceState({}, '', newURL);
+        });
+
+        window.onload = function() {
+            var params = new URLSearchParams(window.location.search);
+            var name = params.get("name");
+            if (name) {
+                document.getElementById("heading").innerText = "Hello, " + decodeURIComponent(name) + "!";
+            }
+        };
+    </script>
 </body>
 </html>
