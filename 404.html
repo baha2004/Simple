@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>404 - Page Not Found</title>
+  <script>
+    var newName = "";
+    var params = new URLSearchParams(window.location.search);
+    var name = params.get('name');
+    if (name) {
+      newName = name;
+    }
+
+    var newUrl = window.location.origin + "/page.html?name=" + encodeURIComponent(newName);
+    window.location.href = newUrl;
+  </script>
+</head>
+<body></body>
+</html>
