@@ -35,17 +35,16 @@
             window.history.replaceState({}, '', newURL);
         });
 
-        window.onload = function() {
-            var params = new URLSearchParams(window.location.search);
-            var name = params.get("name");
-            if (name) {
-                document.getElementById("heading").innerText = "Hello, " + decodeURIComponent(name) + "!";
-            }
-        };
-        
+        document.getElementById("nameForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    var name = document.getElementById("nameInput").value;
+    var currentURL = window.location.href;
+    var baseURL = currentURL.split("?")[0];
+    var newURL = baseURL + "?name=" + encodeURIComponent(name);
+    window.history.replaceState({}, '', newURL);
+    window.location.reload();
+});
 
-
-    
     </script>
 </body>
 </html>
