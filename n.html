@@ -32,21 +32,23 @@
         document.getElementById("nameForm").addEventListener("submit", function(event) {
             event.preventDefault();
             var name = document.getElementById("nameInput").value;
-
-            var queryString = window.location.search;
-            var urlParams = new URLSearchParams(queryString);
-            var sharedName = urlParams.get("name");
-
-            if (sharedName) {
-                document.getElementById("heading").innerText = "Hello, " + sharedName + "!";
-            } else {
-                document.getElementById("heading").innerText = "Hello, " + name + "!";
-                var newURL = window.location.href.split("?")[0] + "?name=" + encodeURIComponent(name);
-                window.history.replaceState({}, '', newURL);
-            }
+            document.getElementById("heading").innerText = "Hello, " + name + "!";
+            var newURL = window.location.href.split("?")[0] + "?name=" + encodeURIComponent(name);
+            window.history.replaceState({}, '', newURL);
 
             // Store the name in localStorage
             localStorage.setItem("name", name);
+
+            // Share the URL with the previous user
+            var previousUser = localStorage.getItem("previousUser");
+            if (previousUser) {
+                var message = "Check out this dynamic web page: " + newURL;
+                var whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
+                window.open(whatsappURL);
+            }
+
+            // Update the previousUser in localStorage
+            localStorage.setItem("previousUser", name);
         });
 
         // Function to retrieve the name from localStorage and update the heading
