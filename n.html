@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
     <title>Dynamic Web Page</title>
@@ -35,27 +35,14 @@
             document.getElementById("heading").innerText = "Hello, " + name + "!";
             var newURL = window.location.href.split("?")[0] + "?name=" + encodeURIComponent(name);
             window.history.replaceState({}, '', newURL);
-
-            // Store the name in localStorage
-            localStorage.setItem("name", name);
-
-            // Share the URL with the previous user
-            var previousUser = localStorage.getItem("previousUser");
-            if (previousUser) {
-                var message = "Check out this dynamic web page: " + newURL;
-                var whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
-                window.open(whatsappURL);
-            }
-
-            // Update the previousUser in localStorage
-            localStorage.setItem("previousUser", name);
         });
 
-        // Function to retrieve the name from localStorage and update the heading
+        // Function to retrieve the name from the URL and update the heading
         function updateHeading() {
-            var name = localStorage.getItem("name");
+            var urlParams = new URLSearchParams(window.location.search);
+            var name = urlParams.get("name");
             if (name) {
-                document.getElementById("heading").innerText = "Hello, " + name + "!";
+                document.getElementById("heading").innerText = "Hello, " + decodeURIComponent(name) + "!";
             }
         }
 
@@ -64,4 +51,3 @@
     </script>
 </body>
 </html>
- 
