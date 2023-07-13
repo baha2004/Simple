@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>404 - Page Not Found</title>
-  <script>
-    var newName = "";
-    var params = new URLSearchParams(window.location.search);
-    var name = params.get('name');
-    if (name) {
-      newName = name;
-    }
-
-    var newUrl = window.location.origin + "/page.html?name=" + encodeURIComponent(newName);
-    window.location.href = newUrl;
-  </script>
+    <meta charset="UTF-8">
+    <meta property="og:url" content="http://www.google.com">
+    <meta property="og:title" content="আমার ওয়েবসাইটের শিরোনাম">
+    <meta property="og:type" content="fun">
+    <meta property="og:description" content="aaso sobai mile moja kori">
+    <meta property="og:image" content="../topb/logo.png">
+    <meta property="og:site_name" content="good">
+    <title>Page title</title>
+ <style>#p{width:200px;}</style>
+ 
 </head>
-<body></body>
+<body>
+    <img id="p" src="../topb/logo.png" alt="photo">
+     <button onclick="shareLink()">Share on WhatsApp</button> 
+    <script>
+        function shareLink() {
+            var currentURL = window.location.href;
+            var message = "Check out this dynamic web page: " + currentURL;
+            var whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
+            window.open(whatsappURL);
+        }
+    </script>
+</body>
 </html>
