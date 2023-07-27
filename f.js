@@ -6,17 +6,6 @@
             var whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(message);
             window.open(whatsappURL);
         }
-
-        // Function to handle form submission
-        document.getElementById("nameForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var name = document.getElementById("nameInput").value;
-            document.getElementById("heading1").innerText = name ;
-            document.getElementById("heading2").innerText = "-by " + name;
-            var newURL = window.location.href.split("?")[0] + "?name=" + encodeURIComponent(name);
-            window.history.replaceState({}, '', newURL);
-        });
-
         // Function to retrieve the name from the URL and update the heading
         function updateHeading() {
             var urlParams = new URLSearchParams(window.location.search);
