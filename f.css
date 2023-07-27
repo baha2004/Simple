@@ -1,0 +1,19 @@
+body{ 
+  text-align: center; background-color:#d2cdae; border:2px solid red 
+  
+}
+  button{
+    width: 50%; background-color:#00ff00 ;height: 40px; font-size: 30px;font-weight: bold; color: #fff; border-radius: 15px; margin:5px;
+    
+  }
+  #nameInput{
+   width:40%; height:30px; border-radius:10px; color: #00ff; font-size: 15px; font-weight: bold; background-color:#b5b2de ;border:2px solid #00f;
+  }
+  #sub{
+    width: 18%;height: 35px;margin: 5px; border-radius: 10px; background-color: #575fff;border: 2px solid #00f; color: #d6deb2; font-size: 15px;
+  }
+  #name1{
+   color: #8300f5;font-size: 40px;}
+   #name2{
+     text-align: right; padding: 0 50px 0 0; color: #77285c;
+   }
